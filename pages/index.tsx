@@ -65,9 +65,9 @@ export default function Home() {
           alignItems: "center",
         }}
       >
-        {weekDays.map((weekDay: any, index: number) => {
-          return (
-            <div>
+        <div>
+          {weekDays.map((weekDay: any, index: number) => {
+            return (
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -166,10 +166,9 @@ export default function Home() {
                   </Grid>
                 </AccordionDetails>
               </Accordion>
-            </div>
-          );
-        })}
-
+            );
+          })}
+        </div>
         <AddTraining />
       </Box>
     </Container>
