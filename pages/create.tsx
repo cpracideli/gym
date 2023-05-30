@@ -1,5 +1,5 @@
 import { Button, Link, TextField, Typography } from "@mui/material";
-import { TrainingType } from "../src/types/Training";
+import { TrainingCreatorType } from "../src/types/Training";
 import { useState } from "react";
 import { CreateData } from "../src/api";
 
@@ -106,7 +106,7 @@ export default function Create() {
               "https://youtu.be/",
               "https://www.youtube.com/embed/"
             );
-            const training: TrainingType = {
+            const training: TrainingCreatorType = {
               exercise,
               weekDay,
               videoUrl: newVideoUrl,
