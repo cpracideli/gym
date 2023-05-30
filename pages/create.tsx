@@ -117,7 +117,14 @@ export default function Create() {
               weight: "",
             };
             CreateData(training).then((res) => {
-              console.log(res);
+              if(res){
+                console.log(res);
+                alert("Criado")
+              }
+              else{
+                alert("Erro ao criar")
+              }
+                
             });
           }}
         />
