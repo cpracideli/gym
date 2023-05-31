@@ -163,9 +163,14 @@ export default function Home() {
                                     );
                                     newData.push(resData);
                                     setData(newData);
+                                    Notiflix.Notify.success("Peso alterado!");
                                     // setData([newData, {training}])
                                   }
-                                );
+                                ).catch{
+                                  Notiflix.Notify.failure(
+                                    "Erro ao alterar Peso!"
+                                  );
+                                };
                               }}
                             />
                           </div>
