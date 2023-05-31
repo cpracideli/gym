@@ -166,11 +166,7 @@ export default function Home() {
                                     Notiflix.Notify.success("Peso alterado!");
                                     // setData([newData, {training}])
                                   }
-                                ).catch{
-                                  Notiflix.Notify.failure(
-                                    "Erro ao alterar Peso!"
-                                  );
-                                };
+                                )
                               }}
                             />
                           </div>
