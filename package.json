@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "latest",
     "next": "latest",
+    "notiflix": "^3.2.6",
     "react": "latest",
     "react-dom": "latest"
   },

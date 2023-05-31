@@ -2,6 +2,7 @@ import { Button, Link, TextField, Typography } from "@mui/material";
 import { TrainingCreatorType } from "../src/types/Training";
 import { useState } from "react";
 import { CreateData } from "../src/api";
+import Notiflix from "notiflix";
 
 export default function Create() {
   const [exercise, setExercise] = useState<string>();
@@ -19,7 +20,7 @@ export default function Create() {
       </Typography>
       <div>
         <TextField
-          style={{ margin: 10 }}
+          style={{ marginTop: 10 }}
           label="Nome"
           variant="outlined"
           fullWidth
@@ -30,7 +31,7 @@ export default function Create() {
           }}
         />
         <TextField
-          style={{ margin: 10 }}
+          style={{ marginTop: 10 }}
           label="Dia da Semana"
           variant="outlined"
           fullWidth
@@ -41,7 +42,7 @@ export default function Create() {
           }}
         />
         <TextField
-          style={{ margin: 10 }}
+          style={{ marginTop: 10 }}
           label="Url do Video"
           variant="outlined"
           fullWidth
@@ -52,7 +53,7 @@ export default function Create() {
           }}
         />
         <TextField
-          style={{ margin: 10 }}
+          style={{ marginTop: 10 }}
           label="Séries"
           variant="outlined"
           fullWidth
@@ -63,7 +64,7 @@ export default function Create() {
           }}
         />
         <TextField
-          style={{ margin: 10 }}
+          style={{ marginTop: 10 }}
           label="Repetições"
           variant="outlined"
           fullWidth
@@ -74,7 +75,7 @@ export default function Create() {
           }}
         />
         <TextField
-          style={{ margin: 10 }}
+          style={{ marginTop: 10 }}
           label="Início do treino"
           variant="outlined"
           fullWidth
@@ -85,7 +86,7 @@ export default function Create() {
           }}
         />
         <TextField
-          style={{ margin: 10 }}
+          style={{ marginTop: 10 }}
           label="Fim do treino"
           variant="outlined"
           fullWidth
@@ -96,7 +97,7 @@ export default function Create() {
           }}
         />
         <Button
-          style={{ margin: 10 }}
+          style={{ marginTop: 10 }}
           variant="contained"
           color="primary"
           fullWidth
@@ -117,19 +118,18 @@ export default function Create() {
               weight: "",
             };
             CreateData(training).then((res) => {
-              if(res){
+              if (res) {
                 console.log(res);
-                alert("Criado")
+                Notiflix.Notify.success("Treino Criado");
+              } else {
+                Notiflix.Notify.failure("Erro ao criar treino");
               }
-              else{
-                alert("Erro ao criar")
-              }
-                
             });
           }}
         />
-        <Link href="/" style={{ margin: 10 }}>
+        <Link href="/">
           <Button
+            style={{ marginTop: 10 }}
             variant="contained"
             color="secondary"
             fullWidth

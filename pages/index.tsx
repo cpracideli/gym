@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GetAllData, UpdateData } from "../src/api";
+import { DeleteData, GetAllData, UpdateData } from "../src/api";
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -24,6 +24,7 @@ import {
 } from "@mui/material";
 import AddTraining from "../src/components/AddTraining";
 import { TrainingType } from "../src/types/Training";
+import Notiflix from "notiflix";
 
 export default function Home() {
   const [data, setData] = useState<TrainingType[]>([]);
@@ -72,32 +73,58 @@ export default function Home() {
                         <Grid key={index} item xs={12} xl={6}>
                           <Divider style={{ marginBottom: 20 }} />
                           <Typography variant="h6">
+                            {training.exercise}
                             <Fab
                               color="secondary"
                               aria-label="add"
                               size="small"
-                              style={{ marginRight: 2 }}
+                              style={{ marginLeft: 5, marginBottom: 10 }}
                             >
                               <EditIcon fontSize="small" />
                             </Fab>
-                            {training.exercise}
+                            <Fab
+                              aria-label="add"
+                              size="small"
+                              style={{
+                                marginLeft: 5,
+                                marginBottom: 10,
+                                color: "white",
+                                backgroundColor: "#ec3433",
+                              }}
+                              onClick={() => {
+                                Notiflix.Confirm.show(
+                                  training.exercise,
+                                  "Deseja excluir o treino?",
+                                  "Sim",
+                                  "Não",
+                                  () => {
+                                    DeleteData(training).then(() => {
+                                      Notiflix.Notify.success(
+                                        "Treino Deletado"
+                                      );
+                                      const copyData = data.filter(
+                                        (d: TrainingType) =>
+                                          d.id !== training.id
+                                      );
+                                      setData(copyData);
+                                    });
+                                  },
+                                  () => {
+                                    Notiflix.Notify.failure(
+                                      "Erro ao deletar o treino"
+                                    );
+                                  },
+                                  {}
+                                );
+                              }}
+                            >
+                              <DeleteIcon fontSize="small" />
+                            </Fab>
                           </Typography>
                           <VideoViewer url={training.videoUrl} />
                           <Typography>
-                            <b>Id:</b> {training.id}
-                          </Typography>
-                          <Typography>
-                            <b>Séries:</b> {training.series}
-                          </Typography>
-                          <Typography>
-                            <b>Repetições:</b> {training.repetitions}
-                          </Typography>
-                          <Typography>
-                            <b>Dia da Semana:</b> {training.weekDay}
-                          </Typography>
-                          <Typography>
-                            <b>Período:</b> {training.startPeriod} até{" "}
-                            {training.endPeriod}
+                            <b>Séries/Rep.:</b> {training.series} x (
+                            {training.repetitions})
                           </Typography>
                           {/* <Typography>Peso: {training.weight}</Typography> */}
                           <div style={{ marginTop: 5 }}>

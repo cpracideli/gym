@@ -2007,6 +2007,11 @@ next@latest:
     "@next/swc-win32-ia32-msvc" "13.4.4"
     "@next/swc-win32-x64-msvc" "13.4.4"
 
+notiflix@^3.2.6:
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/notiflix/-/notiflix-3.2.6.tgz#d713f67734735f9a8611a70eac73250202b8557f"
+  integrity sha512-mUoaJ/s9E4r8o1O8XRqcuXEylpgOkfXtI5SEkBBlBK+LK7nq1c6qQaQcF7QzS/S018Ww7uUqSZotOs5cHENvVw==
+
 npm-run-path@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/npm-run-path/-/npm-run-path-4.0.1.tgz#b7ecd1e5ed53da8e37a55e1c2269e0b97ed748ea"
