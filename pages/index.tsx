@@ -21,6 +21,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
+  Link,
 } from "@mui/material";
 import AddTraining from "../src/components/AddTraining";
 import { TrainingType } from "../src/types/Training";
@@ -74,14 +75,16 @@ export default function Home() {
                           <Divider style={{ marginBottom: 20 }} />
                           <Typography variant="h6">
                             {training.exercise}
-                            <Fab
-                              color="secondary"
-                              aria-label="add"
-                              size="small"
-                              style={{ marginLeft: 5, marginBottom: 10 }}
-                            >
-                              <EditIcon fontSize="small" />
-                            </Fab>
+                            <Link href={`/edit/${training.id}`}>
+                              <Fab
+                                color="secondary"
+                                aria-label="add"
+                                size="small"
+                                style={{ marginLeft: 5, marginBottom: 10 }}
+                              >
+                                <EditIcon fontSize="small" />
+                              </Fab>
+                            </Link>
                             <Fab
                               aria-label="add"
                               size="small"
@@ -123,8 +126,7 @@ export default function Home() {
                           </Typography>
                           <VideoViewer url={training.videoUrl} />
                           <Typography>
-                            <b>Séries/Rep.:</b> {training.series} x (
-                            {training.repetitions})
+                            <b>Séries/Rep.:</b> {training.series} x {training.repetitions}
                           </Typography>
                           {/* <Typography>Peso: {training.weight}</Typography> */}
                           <div style={{ marginTop: 5 }}>
@@ -166,7 +168,7 @@ export default function Home() {
                                     Notiflix.Notify.success("Peso alterado!");
                                     // setData([newData, {training}])
                                   }
-                                )
+                                );
                               }}
                             />
                           </div>
