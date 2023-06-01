@@ -167,6 +167,9 @@ export default function Home() {
                               variant="contained"
                               size="medium"
                               children="Salvar"
+                              style={{
+                                margin: 2,
+                              }}
                               startIcon={<SaveIcon />}
                               onClick={() => {
                                 UpdateData(training).then(
