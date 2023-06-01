@@ -7,11 +7,9 @@ interface VideoViewerProps {
 
 const AddTraining = (props: any) => {
   return (
-    <Box sx={{ "& > :not(style)": { m: 1 } }}>
-      <Fab color="primary" aria-label="add" href="/create">
-        <AddIcon />
-      </Fab>
-    </Box>
+    <Fab color="primary" aria-label="add" href="/create">
+      <AddIcon />
+    </Fab>
   );
 };
 

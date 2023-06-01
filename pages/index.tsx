@@ -22,6 +22,8 @@ import {
   AccordionDetails,
   Typography,
   Link,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import AddTraining from "../src/components/AddTraining";
 import { TrainingType } from "../src/types/Training";
@@ -30,6 +32,7 @@ import Notiflix from "notiflix";
 export default function Home() {
   const [data, setData] = useState<TrainingType[]>([]);
   const [weekDays, setWeekDays] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   if (data === undefined || data.length === 0) {
     GetAllData().then((resData: TrainingType[]) => {
@@ -43,6 +46,7 @@ export default function Home() {
       });
       console.log(uniqueWeekDays);
       setWeekDays(uniqueWeekDays);
+      setLoading(false);
     });
   }
 
@@ -51,6 +55,12 @@ export default function Home() {
       <Typography variant="h4" style={{ marginBottom: 20 }}>
         Treinos
       </Typography>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <div>
         {weekDays.map((weekDay: any, index: number) => {
           return (
@@ -75,7 +85,12 @@ export default function Home() {
                           <Divider style={{ marginBottom: 20 }} />
                           <Typography variant="h6">
                             {training.exercise}
-                            <Link href={`/edit/${training.id}`}>
+                            <Link
+                              href={`/edit/${training.id}`}
+                              onClick={() => {
+                                setLoading(true);
+                              }}
+                            >
                               <Fab
                                 color="secondary"
                                 aria-label="add"
@@ -88,11 +103,10 @@ export default function Home() {
                             <Fab
                               aria-label="add"
                               size="small"
+                              color="error"
                               style={{
                                 marginLeft: 5,
                                 marginBottom: 10,
-                                color: "white",
-                                backgroundColor: "#ec3433",
                               }}
                               onClick={() => {
                                 Notiflix.Confirm.show(
@@ -112,11 +126,7 @@ export default function Home() {
                                       setData(copyData);
                                     });
                                   },
-                                  () => {
-                                    Notiflix.Notify.failure(
-                                      "Erro ao deletar o treino"
-                                    );
-                                  },
+                                  () => {},
                                   {}
                                 );
                               }}
@@ -126,7 +136,8 @@ export default function Home() {
                           </Typography>
                           <VideoViewer url={training.videoUrl} />
                           <Typography>
-                            <b>Séries/Rep.:</b> {training.series} x {training.repetitions}
+                            <b>Séries/Rep.:</b> {training.series} x{" "}
+                            {training.repetitions}
                           </Typography>
                           {/* <Typography>Peso: {training.weight}</Typography> */}
                           <div style={{ marginTop: 5 }}>
@@ -181,7 +192,21 @@ export default function Home() {
           );
         })}
       </div>
-      <AddTraining />
+      <Fab
+        color="primary"
+        aria-label="add"
+        href="/create"
+        onClick={() => {
+          setLoading(true);
+        }}
+        style={{
+          position: "absolute",
+          bottom: 16,
+          right: 16,
+        }}
+      >
+        <AddIcon />
+      </Fab>
     </div>
   );
 }

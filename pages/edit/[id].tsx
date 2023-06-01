@@ -1,15 +1,22 @@
 import { useRouter } from "next/router";
 import { CreateData, GetData, UpdateData } from "../../src/api";
-import { Button, Link, TextField, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Button,
+  CircularProgress,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { TrainingCreatorType, TrainingType } from "../../src/types/Training";
 import { useState } from "react";
 import Notiflix from "notiflix";
 
 export default function Edit() {
   const router = useRouter();
-  const id:number = Number(router.query.id);
+  const id: number = Number(router.query.id);
 
-  const [data, setData] = useState<TrainingType|null>();
+  const [data, setData] = useState<TrainingType | null>();
 
   const [exercise, setExercise] = useState<string>("");
   const [weekDay, setWeekDay] = useState<string>("");
@@ -19,8 +26,7 @@ export default function Edit() {
   const [startPeriod, setStartPeriod] = useState<string>("");
   const [endPeriod, setEndPeriod] = useState<string>("");
   const [weight, setWeight] = useState<string>("");
-  
-
+  const [loading, setLoading] = useState<boolean>(true);
 
   if (data === undefined && id) {
     GetData(id).then((resData: TrainingType) => {
@@ -34,6 +40,7 @@ export default function Edit() {
       setStartPeriod(resData.startPeriod);
       setEndPeriod(resData.endPeriod);
       setWeight(resData.weight);
+      setLoading(false);
     });
   }
 
@@ -42,6 +49,12 @@ export default function Edit() {
       <Typography variant="h4" style={{ marginBottom: 20 }}>
         Editar Treino
       </Typography>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <div>
         <TextField
           style={{ marginTop: 10 }}
@@ -152,7 +165,12 @@ export default function Edit() {
             });
           }}
         />
-        <Link href="/">
+        <Link
+          href="/"
+          onClick={() => {
+            setLoading(true);
+          }}
+        >
           <Button
             style={{ marginTop: 10 }}
             variant="contained"
